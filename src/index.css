@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@layer base {
+  .font-serif {
+    font-family: 'PT Serif', Georgia, Cambria, "Times New Roman", Times, serif;
+  }
+}
+
+@layer utilities {
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+    scroll-behavior: smooth;
+    
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+     
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5);
+    border-radius: 3px;
+    
+  }
+
+  .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.3);
+  }
+}
+/* Custom scrollbar styles */
+.scrollbar-hide::-webkit-scrollbar {
+  width: 6px;
+  background: transparent;
+  
+}
+
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.scrollbar-hide:hover::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.dark .scrollbar-hide::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+.dark .scrollbar-hide:hover::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+/* News article hover effect */
+.news-article {
+  transition: background-color 0.2s ease;
+}
+
+.news-article:hover {
+  background-color: #3c3e40 !important;
+}
+
+.dark .news-article:hover {
+  background-color: #1e293b !important;
+}

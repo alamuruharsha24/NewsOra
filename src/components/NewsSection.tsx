@@ -9,7 +9,7 @@ interface NewsSectionProps {
   isLoading: boolean;
   error: string | null;
 }
-
+//news section 
 export function NewsSection({ section, articles, isLoading, error }: NewsSectionProps) {
   return (
     <>

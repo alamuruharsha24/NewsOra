@@ -39,6 +39,9 @@ export function useNews(rssUrl: string) {
         
         const formattedArticles: NewsArticle[] = items.map(item => ({
           title: item.querySelector('title')?.textContent || '',
+          description: item.querySelector('description')?.textContent || 
+                      item.querySelector('content')?.textContent || 
+                      item.querySelector('content\\:encoded')?.textContent || '',
           url: item.querySelector('link')?.textContent || '',
           publishedAt: item.querySelector('pubDate')?.textContent || new Date().toISOString(),
           source: {

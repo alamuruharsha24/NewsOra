@@ -1,4 +1,4 @@
-import  { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Moon, Sun, Newspaper } from 'lucide-react';
 import { SearchBar } from './components/SearchBar';
 import { NewsSection } from './components/NewsSection';
@@ -22,7 +22,7 @@ const NEWS_SECTIONS: NewsSectionType[] = [
     id: 'toi',
     name: 'Times of India',
     color: 'text-purple-600 dark:text-purple-400',
-    rssUrl: 'https://timesofindia.indiatimes.com/rssfeeds/1221656.cms',
+    rssUrl: 'https://timesofindia.indiatimes.com/rssfeedstopstories.cms', // Updated RSS feed URL
   },
 ];
 

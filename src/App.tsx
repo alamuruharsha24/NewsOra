@@ -22,7 +22,7 @@ const NEWS_SECTIONS: NewsSectionType[] = [
     id: 'toi',
     name: 'Times of India',
     color: 'text-purple-600 dark:text-purple-400',
-    rssUrl: 'https://timesofindia.indiatimes.com/rssfeedstopstories.cms', // Updated RSS feed URL
+    rssUrl: 'https://timesofindia.indiatimes.com/rssfeedstopstories.cms',
   },
 ];
 
@@ -70,59 +70,73 @@ function App() {
   }));
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-      {/* Responsive Header */}
-      <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="flex items-center space-x-3">
-              <Newspaper className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-              <h1 className="text-2xl font-bold">NewsOra</h1>
-            </div>
-            <div className="flex items-center space-x-4 w-full md:w-auto">
-              <div className="flex-1 max-w-xl">
-                <SearchBar search={search} onSearchChange={setSearch} />
+    <>
+      <style>{`
+        html, body {
+          scroll-behavior: smooth;
+        }
+        html::-webkit-scrollbar, body::-webkit-scrollbar {
+          display: none;
+        }
+        html, body {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;     /* Firefox */
+        }
+      `}</style>
+      <div className="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
+        {/* Responsive Header */}
+        <header className="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <div className="flex items-center space-x-3">
+                <Newspaper className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+                <h1 className="text-2xl font-bold">NewsOra</h1>
               </div>
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
-                title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
-              >
-                {darkMode ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </button>
+              <div className="flex items-center space-x-4 w-full md:w-auto">
+                <div className="flex-1 max-w-xl">
+                  <SearchBar search={search} onSearchChange={setSearch} />
+                </div>
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                  title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+                >
+                  {darkMode ? (
+                    <Sun className="w-5 h-5" />
+                  ) : (
+                    <Moon className="w-5 h-5" />
+                  )}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredSections.map(section => (
-            <NewsSection
-              key={section.id}
-              section={section}
-              articles={section.articles}
-              isLoading={section.isLoading}
-              error={section.error}
-            />
-          ))}
-        </div>
-      </main>
+        {/* Main content */}
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredSections.map(section => (
+              <NewsSection
+                key={section.id}
+                section={section}
+                articles={section.articles}
+                isLoading={section.isLoading}
+                error={section.error}
+              />
+            ))}
+          </div>
+        </main>
 
-      {/* Footer */}
-      <footer className="bg-white dark:bg-gray-800 shadow-md mt-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-center text-gray-600 dark:text-gray-400">
-            © 2025 NewsOra. Powered by RSS feeds from The Hindu, The Indian Express, and Times of India.
-          </p>
-        </div>
-      </footer>
-    </div>
+        {/* Footer */}
+        <footer className="bg-white dark:bg-gray-800 shadow-md mt-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <p className="text-center text-gray-600 dark:text-gray-400">
+              © 2025 NewsOra. Powered by RSS feeds from The Hindu, The Indian Express, and Times of India.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </>
   );
 }
 

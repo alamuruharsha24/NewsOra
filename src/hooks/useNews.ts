@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { NewsArticle } from '../types';
 
-const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
+const CORS_PROXY = 'https://thingproxy.freeboard.io/fetch/';
 const MAX_NEWS_ITEMS = 10;
 
 export function useNews(rssUrl: string) {
@@ -16,19 +16,19 @@ export function useNews(rssUrl: string) {
       try {
         setIsLoading(true);
         setError(null);
-        
-        const response = await fetch(`${CORS_PROXY}${encodeURIComponent(rssUrl)}`, {
-          signal: abortController.signal
+
+        const response = await fetch(`${CORS_PROXY}${rssUrl}`, {
+          signal: abortController.signal,
         });
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
 
         const text = await response.text();
         const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(text, "text/xml");
-        
+        const xmlDoc = parser.parseFromString(text, 'text/xml');
+
         const parserError = xmlDoc.querySelector('parsererror');
         if (parserError) {
           throw new Error('Failed to parse RSS feed');
@@ -36,14 +36,12 @@ export function useNews(rssUrl: string) {
 
         const items = Array.from(xmlDoc.querySelectorAll('item')).slice(0, MAX_NEWS_ITEMS);
         const feedTitle = xmlDoc.querySelector('channel > title')?.textContent || '';
-        
+
         const formattedArticles: NewsArticle[] = items.map(item => ({
           title: item.querySelector('title')?.textContent || '',
-          description: item.querySelector('description')?.textContent || 
-                      item.querySelector('content')?.textContent || 
-                      item.querySelector('content\\:encoded')?.textContent || '',
           url: item.querySelector('link')?.textContent || '',
           publishedAt: item.querySelector('pubDate')?.textContent || new Date().toISOString(),
+          description: item.querySelector('description')?.textContent || '',
           source: {
             name: feedTitle,
           },

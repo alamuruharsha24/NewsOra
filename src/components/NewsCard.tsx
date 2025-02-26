@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Share2, ExternalLink, Clock } from 'lucide-react';
 import type { NewsArticle } from '../types';
 
@@ -13,7 +13,7 @@ export function NewsCard({ article, color }: NewsCardProps) {
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
-    minute: '2-digit'
+    minute: '2-digit',
   });
 
   const shareNews = async () => {
@@ -21,8 +21,8 @@ export function NewsCard({ article, color }: NewsCardProps) {
 
     try {
       setIsSharing(true);
-      
-      if (navigator.share) {
+
+      if (typeof navigator.share !== 'undefined') {
         await navigator.share({
           title: article.title,
           url: article.url,
@@ -42,10 +42,10 @@ export function NewsCard({ article, color }: NewsCardProps) {
   return (
     <div className="p-3 border-b dark:border-gray-700 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors">
       <div className="flex justify-between items-start gap-3">
-        <a 
-          href={article.url} 
-          target="_blank" 
-          rel="noopener noreferrer" 
+        <a
+          href={article.url}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex-1"
         >
           <h3 className={`font-serif text-base leading-tight hover:${color} transition-colors`}>
@@ -57,17 +57,19 @@ export function NewsCard({ article, color }: NewsCardProps) {
             onClick={shareNews}
             disabled={isSharing}
             className={`p-1.5 rounded-full transition-colors ${
-              isSharing 
-                ? 'bg-gray-100 dark:bg-gray-700 cursor-not-allowed' 
+              isSharing
+                ? 'bg-gray-100 dark:bg-gray-700 cursor-not-allowed'
                 : 'hover:bg-gray-100 dark:hover:bg-gray-700'
             }`}
-            title={navigator.share ? 'Share' : 'Copy link'}
+            title={typeof navigator.share !== 'undefined' ? 'Share' : 'Copy link'}
           >
-            <Share2 className={`w-3.5 h-3.5 ${
-              isSharing 
-                ? 'text-gray-400 dark:text-gray-500' 
-                : 'text-gray-600 dark:text-gray-400'
-            }`} />
+            <Share2
+              className={`w-3.5 h-3.5 ${
+                isSharing
+                  ? 'text-gray-400 dark:text-gray-500'
+                  : 'text-gray-600 dark:text-gray-400'
+              }`}
+            />
           </button>
           <a
             href={article.url}
